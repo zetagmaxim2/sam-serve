@@ -37,18 +37,7 @@ app.post('/api/send-user-data', async (req, res) => {
       body: JSON.stringify({
         chat_id: chatId,
         text: message,
-        parse_mode: 'Markdown',
-        reply_markup: {
-          inline_keyboard: [
-            // Call button (opens dialer)
-
-            // WhatsApp button (opens chat) — wa.me requires number without '+'
-            [{
-              text: `💬 WhatsApp: ${phone}`,
-              url: `https://wa.me/${waMeNumber}`
-            }]
-          ]
-        }
+        parse_mode: 'Markdown'
       })
     });
 
@@ -74,3 +63,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

